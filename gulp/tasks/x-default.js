@@ -9,7 +9,7 @@ let reload = browserSync.reload
 gulp.task('watch', () => {
   gulp.watch(config.paths.jade.components,   gulp.series('jade'))
   gulp.watch(config.paths.stylus.components, gulp.series('css'))
-  gulp.watch(config.paths.typescript.entry,  gulp.series('js'))
+  gulp.watch(config.paths.typescript.entry,       gulp.series('js'))
 })
 
 gulp.task('default', gulp.parallel('server', 'watch', 'jade', 'css', 'js'))

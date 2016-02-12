@@ -9,12 +9,11 @@ let $ = gulpLoadPlugins(PATTERN.gulp)
 gulp.task('html-b', () =>
   gulp.src(config.paths.jade.dest + '*.html')
   .pipe($.w3cjs())
-  // .pipe($.selectors.run()) Herovo work plugin
+  // .pipe($.selectors.run()) FIXME: Herovo work plugin
   .pipe($.htmlmin(HTMLMIN_SETTINGS))
   .pipe(gulp.dest(config.paths.build.entry))
 )
 
-//Build css
 gulp.task('css-b', () =>
   gulp.src(config.paths.stylus.dest + '/*.css')
   .pipe($.concatCss(config.names.css))
@@ -23,7 +22,6 @@ gulp.task('css-b', () =>
   .pipe(gulp.dest(config.paths.build.css))
 )
 
-//Build js
 gulp.task('js-b', () =>
   gulp.src(config.paths.typescript.dest + '/*.js')
   .pipe($.concat(config.names.js))
@@ -31,7 +29,6 @@ gulp.task('js-b', () =>
   .pipe(gulp.dest(config.paths.build.js))
 )
 
-//Build images
 gulp.task('images', function () {
   return gulp.src(config.paths.images.entry)
   .pipe($.newer(config.paths.images.dest))
@@ -45,7 +42,6 @@ gulp.task('svg', () =>
   .pipe(gulp.dest(config.paths.svg.dest))
 )
 
-// Work herovo
 gulp.task('critical', () =>
     $.critical.generate({
         inline: true,
@@ -57,20 +53,20 @@ gulp.task('critical', () =>
         width: 320,
         height: 480,
         minify: true
-}))
+})) // FIXME: work herovo
 
 gulp.task('copy', () =>
   gulp.src(config.paths.fonts.entry)
   .pipe(gulp.dest(config.paths.fonts.dest))
 )
 
-//Build
 gulp.task('build', gulp.series('html-b', 'js-b', 'css-b', 'svg', 'images', 'copy', () =>
   gulp.src(config.paths.build.entry + '/**/*')
   .pipe($.webstandards())
   .pipe($.notify({
     onLast: true,
     title: 'Gulp',
-      message: 'Build Done!\nTotal size project :' + $.size.prettySize
+      message: `Build Done!
+      Total size project : ${$.size.prettySize}`
     }))
 ))

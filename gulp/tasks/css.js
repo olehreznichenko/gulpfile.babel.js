@@ -35,6 +35,7 @@ gulp.task('css', () =>
   .pipe($.notify({
     onLast: true,
     title: 'Gulp',
-      message: 'Stylus has been compiled\nTotal size <%= file.relative %> :' + $.size.prettySize // FIXME: undefined
+      message: `Stylus has been compiled
+      Total size <%= file.relative %> : ${$.size.prettySize}` // FIXME: undefined
     }))
 )

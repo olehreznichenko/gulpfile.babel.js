@@ -80,8 +80,9 @@ export let UGLIFY_SETTINGS = {
   warnings      : true
 }
 
-export let TS_SETTINGS = {
+export let TSSETTINGS = {
   "target": "ES5",
+  "externalTranspiler": "babel",
   "experimentalDecorators": true,
   "emitDecoratorMetadata": true,
   "experimentalAsyncFunctions": true
