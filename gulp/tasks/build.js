@@ -7,9 +7,9 @@ import {HTMLMIN_SETTINGS, UGLIFY_SETTINGS, PATTERN} from '../settings'
 let $ = gulpLoadPlugins(PATTERN.gulp)
 
 gulp.task('html-b', () =>
-  gulp.src([ config.paths.jade.dest, config.paths.build.css + '/*.css' ])
+  gulp.src(config.paths.jade.dest + '*.html')
   .pipe($.w3cjs())
-  .pipe($.selectors.run())
+  // .pipe($.selectors.run()) Herovo work plugin
   .pipe($.htmlmin(HTMLMIN_SETTINGS))
   .pipe(gulp.dest(config.paths.build.entry))
 )
@@ -22,37 +22,50 @@ gulp.task('css-b', () =>
   .pipe($.cssnano())
   .pipe(gulp.dest(config.paths.build.css))
 )
-// gulp-newer gulp-cached gulp-changed gulp-remember
+
 //Build js
 gulp.task('js-b', () =>
-  gulp.src(config.paths.babel.dest + '/*.js')
+  gulp.src(config.paths.typescript.dest + '/*.js')
   .pipe($.concat(config.names.js))
   .pipe($.uglify(UGLIFY_SETTINGS))
   .pipe(gulp.dest(config.paths.build.js))
 )
 
 //Build images
-gulp.task('images', () =>
-  gulp.src(config.paths.images.entry)
+gulp.task('images', function () {
+  return gulp.src(config.paths.images.entry)
+  .pipe($.newer(config.paths.images.dest))
   .pipe($.imagemin({ optimizationLevel: 5 }))
   .pipe(gulp.dest(config.paths.images.dest))
+})
+
+gulp.task('svg', () =>
+  gulp.src(config.paths.svg.entry)
+  .pipe($.svgmin())
+  .pipe(gulp.dest(config.paths.svg.dest))
 )
 
-
+// Work herovo
 gulp.task('critical', () =>
     $.critical.generate({
         inline: true,
-        base: 'app/build/',
+        base: config.paths.build.entry,
         src: 'index.html',
         css: [config.paths.build.css+'/' + config.names.css],
+        minify: true,
         dest: config.paths.build.entry + '/index.html',
         width: 320,
         height: 480,
         minify: true
 }))
 
+gulp.task('copy', () =>
+  gulp.src(config.paths.fonts.entry)
+  .pipe(gulp.dest(config.paths.fonts.dest))
+)
+
 //Build
-gulp.task('build', gulp.series('html-b', 'js-b', 'css-b', 'images', 'critical', () =>
+gulp.task('build', gulp.series('html-b', 'js-b', 'css-b', 'svg', 'images', 'copy', () =>
   gulp.src(config.paths.build.entry + '/**/*')
   .pipe($.webstandards())
   .pipe($.notify({

@@ -7,5 +7,5 @@ gulp.task('server', () =>
     server: 'app',
     port: 8080,
     open: 'local',
-    browser: 'google chrome canary'
+    browser: 'google chrome'
   }))
