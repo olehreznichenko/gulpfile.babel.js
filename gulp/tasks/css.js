@@ -13,7 +13,7 @@ let OnError = $.notify.onError({
     title: 'Error running '
 })
 
-let POST_PLUGINS = [
+const POST_PLUGINS = [
   post.autoprefixer(BROWSERSLIST_CONFIG),
   post.rucksackCss(RUCKSACK_SETTINGS),
   post.apply, // TODO: dont work

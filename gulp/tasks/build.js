@@ -29,12 +29,11 @@ gulp.task('js-b', () =>
   .pipe(gulp.dest(config.paths.build.js))
 )
 
-gulp.task('images', function () {
-  return gulp.src(config.paths.images.entry)
-  .pipe($.newer(config.paths.images.dest))
+gulp.task('images', () =>
+  gulp.src(config.paths.images.entry)
   .pipe($.imagemin({ optimizationLevel: 5 }))
   .pipe(gulp.dest(config.paths.images.dest))
-})
+)
 
 gulp.task('svg', () =>
   gulp.src(config.paths.svg.entry)
@@ -55,12 +54,12 @@ gulp.task('critical', () =>
         minify: true
 })) // FIXME: work herovo
 
-gulp.task('copy', () =>
+gulp.task('copy_fonts', () =>
   gulp.src(config.paths.fonts.entry)
   .pipe(gulp.dest(config.paths.fonts.dest))
 )
 
-gulp.task('build', gulp.series('html-b', 'js-b', 'css-b', 'svg', 'images', 'copy', () =>
+gulp.task('build', gulp.series('html-b', 'js-b', 'css-b', 'svg', 'images', 'copy_fonts', () =>
   gulp.src(config.paths.build.entry + '/**/*')
   .pipe($.webstandards())
   .pipe($.notify({

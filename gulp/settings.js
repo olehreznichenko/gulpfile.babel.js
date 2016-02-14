@@ -1,9 +1,9 @@
-export let PATTERN = {
-  gulp: {pattern: ['gulp-*', 'gulp.*', 'posthtml-*', 'poststylus', 'rupture', 'critical', 'ngrok', 'psi']},
+export const PATTERN = {
+  gulp: {pattern: ['gulp-*', 'gulp.*', 'posthtml-*', 'poststylus', 'rupture', 'critical']},
   postcss: {pattern: ['autoprefixer', 'rucksack-css', 'cssnano', 'lost']}
 }
 
-export let NEXT_SETTINGS = {
+export const NEXT_SETTINGS = {
   messages: {
     browser: false,
     console: false
@@ -19,7 +19,7 @@ export let NEXT_SETTINGS = {
   "autoprefixer": false
 }
 
-export let RUCKSACK_SETTINGS = {
+export const RUCKSACK_SETTINGS = {
   clearFix: false,
   shorthandPosition: true,
   inputPseudo: true,
@@ -32,7 +32,7 @@ export let RUCKSACK_SETTINGS = {
   quantityPseudoSelectors: true
 }
 
-export let BROWSERSLIST_CONFIG = {
+export const BROWSERSLIST_CONFIG = {
   browsers: [
     'ie >= 11',
     'ie_mob >= 11',
@@ -47,7 +47,7 @@ export let BROWSERSLIST_CONFIG = {
 }
 
 
-export let HTMLMIN_SETTINGS = {
+export const HTMLMIN_SETTINGS = {
   removeComments: true,
   removeAttributeQuotes: true,
   collapseWhitespace: true,
@@ -59,7 +59,7 @@ export let HTMLMIN_SETTINGS = {
   minifyURLs: true
 }
 
-export let UGLIFY_SETTINGS = {
+export const UGLIFY_SETTINGS = {
   sequences     : true,
   properties    : true,
   dead_code     : true,
@@ -80,9 +80,8 @@ export let UGLIFY_SETTINGS = {
   warnings      : true
 }
 
-export let TSSETTINGS = {
+export const TS_SETTINGS = {
   "target": "ES5",
-  "externalTranspiler": "babel",
   "experimentalDecorators": true,
   "emitDecoratorMetadata": true,
   "experimentalAsyncFunctions": true

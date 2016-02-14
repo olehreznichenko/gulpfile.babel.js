@@ -1,6 +1,6 @@
 import gulp from 'gulp'
 import config from '../config'
-import {TSSETTINGS} from '../settings'
+import {TS_SETTINGS} from '../settings'
 import gulpLoadPlugins from 'gulp-load-plugins'
 import browserSync from 'browser-sync'
 
@@ -12,9 +12,8 @@ let OnError = $.notify.onError({
 })
 
 gulp.task('js', () =>
-  gulp.src(config.paths.typescript.entry, {since: gulp.lastRun('js')})
-  .pipe($.newer(config.paths.typescript.dest))
-  .pipe($.typescript(TSSETTINGS))
+  gulp.src(config.paths.typescript.entry)
+  .pipe($.typescript(TS_SETTINGS))
   .on('error', OnError)
   .pipe(gulp.dest(config.paths.typescript.dest))
   .pipe(reload({ stream: true }))
