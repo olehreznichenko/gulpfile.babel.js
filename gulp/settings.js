@@ -1,6 +1,6 @@
 export const PATTERN = {
   gulp: {pattern: ['gulp-*', 'gulp.*', 'posthtml-*', 'poststylus', 'rupture', 'critical']},
-  postcss: {pattern: ['autoprefixer', 'rucksack-css', 'cssnano', 'lost']}
+  postcss: {pattern: ['rucksack-css', 'cssnano', 'lost']}
 }
 
 export const NEXT_SETTINGS = {
@@ -13,10 +13,9 @@ export const NEXT_SETTINGS = {
     customMedia: true,
     mediaQueriesRange: true,
     customSelectors: true,
-    colorFunction: true,
-    customSelectors: true
+    colorFunction: true
   },
-  "autoprefixer": false
+  "autoprefixer": true
 }
 
 export const RUCKSACK_SETTINGS = {
@@ -83,6 +82,5 @@ export const UGLIFY_SETTINGS = {
 export const TS_SETTINGS = {
   "target": "ES5",
   "experimentalDecorators": true,
-  "emitDecoratorMetadata": true,
-  "experimentalAsyncFunctions": true
+  "emitDecoratorMetadata": true
 }

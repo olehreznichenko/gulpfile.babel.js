@@ -1,20 +1,19 @@
 import gulp from 'gulp'
-import config from '../config'
-import {BROWSERSLIST_CONFIG, RUCKSACK_SETTINGS, NEXT_SETTINGS, PATTERN} from '../settings'
+import paths from '../config'
+import {RUCKSACK_SETTINGS, NEXT_SETTINGS, PATTERN} from '../settings'
 import gulpLoadPlugins from 'gulp-load-plugins'
 import postcssLoadPlugins from 'postcss-load-plugins'
 import browserSync from 'browser-sync'
 
-let $ = gulpLoadPlugins(PATTERN.gulp)
-let post = postcssLoadPlugins(PATTERN.postcss)
-let reload = browserSync.reload
-let OnError = $.notify.onError({
+const $ = gulpLoadPlugins(PATTERN.gulp)
+const post = postcssLoadPlugins(PATTERN.postcss)
+const reload = browserSync.reload
+const OnError = $.notify.onError({
     message: 'Error: <%= error.message %>',
     title: 'Error running '
 })
 
 const POST_PLUGINS = [
-  post.autoprefixer(BROWSERSLIST_CONFIG),
   post.rucksackCss(RUCKSACK_SETTINGS),
   post.apply, // TODO: dont work
   post.mqpacker,
@@ -26,16 +25,16 @@ const POST_PLUGINS = [
 ]
 
 gulp.task('css', () =>
-  gulp.src(config.paths.stylus.entry)
+  gulp.src(paths.stylus.entry)
   .pipe($.stylus({ use: [ $.poststylus(POST_PLUGINS), $.rupture() ] }))
   .on('error', OnError)
   .pipe($.size())
-  .pipe(gulp.dest(config.paths.stylus.dest))
-  .pipe(reload({ stream: true }))
-  .pipe($.notify({
-    onLast: true,
-    title: 'Gulp',
-      message: `Stylus has been compiled
-      Total size <%= file.relative %> : ${$.size.prettySize}` // FIXME: undefined
-    }))
+  .pipe(gulp.dest(paths.stylus.dest))
+  .pipe(reload({stream:true}))
+  // .pipe($.notify({
+  //   onLast: true,
+  //   title: 'Gulp',
+  //     message: `Stylus has been compiled
+  //     Total size <%= file.relative %> : ${$.size.prettySize}` // FIXME: undefined
+  //   }))
 )
