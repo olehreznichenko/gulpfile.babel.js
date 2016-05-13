@@ -1,5 +1,5 @@
 import gulp from 'gulp'
-import paths from '../config'
+import {paths} from '../config'
 import {TS_SETTINGS} from '../settings'
 import gulpLoadPlugins from 'gulp-load-plugins'
 import browserSync from 'browser-sync'
@@ -11,16 +11,16 @@ const OnError = $.notify.onError({
     title: 'Error running '
 })
 
-gulp.task('js', () =>
-  gulp.src(paths.typescript.entry)
+gulp.task('ts', () =>
+  gulp.src(paths.ts.entry)
   .pipe($.typescript(TS_SETTINGS))
   .on('error', OnError)
-  .pipe(gulp.dest(paths.typescript.dest))
+  .pipe(gulp.dest(paths.ts.dest))
   .pipe(reload({stream:true}))
-  // .pipe($.notify({
-  //   onLast: true,
-  //   title: 'Gulp',
-  //     message: `TS has been compiled
-  //     Total size <%= file.relative %> : ${$.size.prettySize}`
-  //   }))
+  .pipe($.size())
+  .pipe($.notify({
+    onLast: true,
+    title: 'Gulp',
+    message: `TS has been compiled. <%= file.relative %>`
+    }))
 )

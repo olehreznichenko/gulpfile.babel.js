@@ -1,5 +1,5 @@
 import gulp from 'gulp'
-import paths from '../config'
+import {paths} from '../config'
 import {RUCKSACK_SETTINGS, NEXT_SETTINGS, PATTERN} from '../settings'
 import gulpLoadPlugins from 'gulp-load-plugins'
 import postcssLoadPlugins from 'postcss-load-plugins'
@@ -28,13 +28,12 @@ gulp.task('css', () =>
   gulp.src(paths.stylus.entry)
   .pipe($.stylus({ use: [ $.poststylus(POST_PLUGINS), $.rupture() ] }))
   .on('error', OnError)
-  .pipe($.size())
   .pipe(gulp.dest(paths.stylus.dest))
   .pipe(reload({stream:true}))
-  // .pipe($.notify({
-  //   onLast: true,
-  //   title: 'Gulp',
-  //     message: `Stylus has been compiled
-  //     Total size <%= file.relative %> : ${$.size.prettySize}` // FIXME: undefined
-  //   }))
+  .pipe($.size())
+  .pipe($.notify({
+    onLast: true,
+    title: 'Gulp',
+    message: `Stylus has been compiled. <%= file.relative %>`
+    }))
 )

@@ -1,5 +1,5 @@
 export const PATTERN = {
-  gulp: {pattern: ['gulp-*', 'gulp.*', 'posthtml-*', 'poststylus', 'rupture', 'critical']},
+  gulp: {pattern: ['gulp-*', 'gulp.*', 'poststylus', 'rupture', 'critical']},
   postcss: {pattern: ['rucksack-css', 'cssnano', 'lost']}
 }
 

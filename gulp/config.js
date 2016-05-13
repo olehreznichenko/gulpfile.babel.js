@@ -9,8 +9,8 @@ export const paths = {
       components: 'app/stylus/components/*.styl',
       dest: 'app/css'
     },
-    typescript: {
-      entry: 'app/typescript/*.*',
+    ts: {
+      entry: 'app/ts/*.*',
       dest: 'app/js'
     },
     images: {

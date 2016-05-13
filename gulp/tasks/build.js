@@ -1,5 +1,5 @@
 import gulp from 'gulp'
-import paths from '../config'
+import {paths} from '../config'
 import gulpLoadPlugins from 'gulp-load-plugins'
 import {HTMLMIN_SETTINGS, UGLIFY_SETTINGS, PATTERN} from '../settings'
 
@@ -21,8 +21,8 @@ gulp.task('css-b', () =>
   .pipe(gulp.dest(paths.build.css))
 )
 
-gulp.task('js-b', () =>
-  gulp.src(paths.typescript.dest + '/*.js')
+gulp.task('ts-b', () =>
+  gulp.src(paths.ts.dest + '/*.js')
   .pipe($.concat(paths.names.js))
   .pipe($.uglify(UGLIFY_SETTINGS))
   .pipe(gulp.dest(paths.build.js))
@@ -57,13 +57,13 @@ gulp.task('copy_fonts', () =>
   .pipe(gulp.dest(paths.fonts.dest))
 )
 
-gulp.task('build', gulp.series('html-b', 'js-b', 'css-b', 'svg', 'images', 'copy_fonts', () =>
+gulp.task('build', gulp.series('html-b', 'ts-b', 'css-b', 'svg', 'images', 'copy_fonts', () =>
   gulp.src(paths.build.entry + '/**/*')
   .pipe($.webstandards())
-  // .pipe($.notify({
-  //   onLast: true,
-  //   title: 'Gulp',
-  //     message: `Build Done!
-  //     Total size project : ${$.size.prettySize}`
-  //   }))
+  .pipe($.size())
+  .pipe($.notify({
+    onLast: true,
+    title: 'Gulp',
+    message: `Build Done! Total size project : ${$.size.prettySize}`
+    }))
 ))
