@@ -31,8 +31,8 @@ export const paths = {
       css: 'app/build/css'
     },
     names: {
-      css: 'styles.min.css',
-      js: 'javascript.min.js',
+      css: 'main.min.css',
+      js: 'common.min.js',
       critical: 'critical.min.css'
     }
 }
